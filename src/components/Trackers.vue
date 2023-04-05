@@ -1,10 +1,19 @@
 <script setup lang="ts">
 import useGeoride from '~/composables/useGeoride'
 
-const trackers = ref(await useGeoride().getTrackers())
-// const currentTracker: Ref<number> = ref(0)
+const trackers = ref()
 
-// token.value = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzZXIiOjE4NTUwLCJpYXQiOjE2ODA3MDAzNDMsImV4cCI6MTY4MzI5MjM0M30.hnSEtV3RtX1YUdUh2NyYofixCRgd_92DP7OnImYhAQY'
+const forceUpdate = async () => {
+  trackers.value = await useGeoride().getTrackers()
+}
+
+defineExpose({
+  forceUpdate,
+})
+
+onMounted(async () => {
+  trackers.value = await useGeoride().getTrackers()
+})
 </script>
 
 <template>
