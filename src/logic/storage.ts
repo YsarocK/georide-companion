@@ -1,3 +1,4 @@
 import { useStorageLocal } from '~/composables/useStorageLocal'
 
-export const storageDemo = useStorageLocal('webext-demo', 'Storage Demo')
+export const email = useStorageLocal('georide-companion-email', '')
+export const token = useStorageLocal('georide-companion-token', '')
