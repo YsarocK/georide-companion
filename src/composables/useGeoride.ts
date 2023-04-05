@@ -2,12 +2,6 @@ import { email, token } from '~/logic/storage'
 
 const GEORIDE_ENDPOINT = 'https://api.georide.com'
 
-const BASE_HEADERS = {
-  headers: {
-    Authorization: `Bearer ${token.value}`,
-  },
-}
-
 export default function useGeoride() {
   const getToken = (password: string) => {
     return fetch(`${GEORIDE_ENDPOINT}/user/login`, {
@@ -25,12 +19,37 @@ export default function useGeoride() {
 
   const getTrackers = async () => {
     return fetch(`${GEORIDE_ENDPOINT}/user/trackers`, {
-      ...BASE_HEADERS,
+      headers: {
+        Authorization: `Bearer ${token.value}`,
+      },
     }).then(r => r.json())
       .then((r) => {
         return r
       })
   }
 
-  return { getToken, getTrackers }
+  const getEvents = async (trackerID: string) => {
+    const now = Date.now()
+    const nowLess5Days = now - (5 * 24 * 60 * 60 * 1000)
+
+    const START_EVENTS = new Date(nowLess5Days).toISOString().substring(0, 10)
+    const END_EVENTS = new Date(now).toISOString().substring(0, 10)
+
+    return fetch(`${GEORIDE_ENDPOINT}/tracker/${trackerID}/events?from=${START_EVENTS}&to=${END_EVENTS}&results=5&page=1`, {
+      headers: {
+        Authorization: `Bearer ${token.value}`,
+      },
+    }).then(r => r.json())
+      .then((r) => {
+        return r
+      })
+  }
+
+  const toggleLock = async (trackerID: string) => {
+    return fetch(`${GEORIDE_ENDPOINT}/tracker/${trackerID}/toggleLock`, {
+      method: 'POST',
+    })
+  }
+
+  return { getToken, getTrackers, getEvents, toggleLock }
 }
