@@ -52,5 +52,6 @@ const handleToggleLock = () => {
         <p>{{ new Date(event.createdAt).toISOString().substring(0, 10) }}</p>
       </div>
     </div>
+    <Map :id="tracker.trackerId" :pos="{ lat: tracker.lockedLatitude, lng: tracker.lockedLongitude }" />
   </div>
 </template>
