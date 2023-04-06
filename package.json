@@ -1,9 +1,9 @@
 {
   "name": "georide-companion",
   "displayName": "Georide Companion",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
-  "description": "[description]",
+  "description": "Ayez accès à vos boitiers Georide directement depuis votre navigateur. NON-OFFICIEL",
   "scripts": {
     "dev": "npm run clear && cross-env NODE_ENV=development run-p dev:*",
     "dev:prepare": "esno scripts/prepare.ts",

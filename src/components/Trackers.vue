@@ -20,4 +20,9 @@ onMounted(async () => {
   <div v-if="trackers" class="w-full mt-10">
     <Tracker v-for="tracker in trackers" :key="tracker.trackerName" :tracker="tracker" />
   </div>
+  <div v-else>
+    <div class="text-center text-gray-500">
+      Loading...
+    </div>
+  </div>
 </template>
