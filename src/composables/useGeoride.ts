@@ -35,7 +35,7 @@ export default function useGeoride() {
     const START_EVENTS = new Date(nowLess5Days).toISOString().substring(0, 10)
     const END_EVENTS = new Date(now).toISOString().substring(0, 10)
 
-    return fetch(`${GEORIDE_ENDPOINT}/tracker/${trackerID}/events?from=${START_EVENTS}&to=${END_EVENTS}&results=5&page=1`, {
+    return fetch(`${GEORIDE_ENDPOINT}/tracker/${trackerID}/events?from=${START_EVENTS}&to=${END_EVENTS}&results=10&page=1`, {
       headers: {
         Authorization: `Bearer ${token.value}`,
       },

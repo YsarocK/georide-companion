@@ -17,9 +17,10 @@ onMounted(() => {
   mapbox.accessToken = 'pk.eyJ1IjoiZXRpZW5uZW1wcm8iLCJhIjoiY2wzbHA0NmlnMGlqaTNjcDN6a211cGU3bSJ9.KO2RwjfkawmrRaPxXlI1eA'
   map.value = new mapbox.Map({
     container: `mapContainer--${props.id}`,
-    style: 'mapbox://styles/mapbox/streets-v11',
+    style: 'mapbox://styles/mapbox/light-v11',
     center: [props.pos.lng, props.pos.lat],
     zoom: 12,
+    interactive: false,
   })
   marker.value = new mapbox.Marker({
     scale: 0.7,
@@ -31,8 +32,14 @@ onMounted(() => {
     map.value.resize()
   }, 1000)
 })
+
+const handleClick = () => {
+  browser.windows.create({
+    url: `https://www.google.com/maps/dir/?api=1&travelmode=driving&layer=traffic&destination=${props.pos.lat},${props.pos.lng}`,
+  })
+}
 </script>
 
 <template>
-  <div :id="`mapContainer--${props.id}`" class="w-full max-w-full h-[250px] rounded-md" />
+  <div :id="`mapContainer--${props.id}`" class="cursor-pointer w-full max-w-full h-[250px] rounded-md" @click="handleClick" />
 </template>
